@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+
+  app:
+    build: .
+    command: -wait tcp://db:3306 -timeout 20s node server/index.js
+    volumes:
+      - ./src/server:/usr/src/app/server
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nodedb
+
+volumes:
+  database:
