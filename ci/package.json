@@ -1,0 +1,11 @@
+{
+  "name": "ci",
+  "version": "1.0.0",
+  "description": "Pipeline de CI com SonarCloud",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
+  }
+}
